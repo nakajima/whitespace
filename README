@@ -1,0 +1,17 @@
+# whitespace
+
+Strips whitespace in files modified by git.
+
+## USAGE
+
+Run it:
+
+    $ whitespace
+
+You can also use it to strip whitespace from all files:
+
+    $ whitespace --all
+
+That's pretty much it.
+
+(c) Copyright 2011 Pat Nakajima. All Rights Reserved. 

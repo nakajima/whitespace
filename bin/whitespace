@@ -29,10 +29,16 @@ class WhitespaceProcessor
   end
 end
 
-puts "* Stripping whitespace from modified files."
-`git status`.split("\n").each do |line|
-  next unless line =~ /^#\tmodified:/
-  line = line.split(':').last.strip
+if ARGV.include?('--all')
+  files = `find . -type file | grep -v .git | grep -v ./vendor | grep -v ./tmp  | egrep ".(rb|js|haml|html|css|sass)"`.split(/\n/)
+  puts "* Stripping whitespace from all project files"
+else
+  files = `git status | egrep ".(rb|js|haml|html|css|sass)"`.split("\n").select { |file| file =~ /^#\t(modified|new file|renamed):/ }
+  puts "* Stripping whitespace from modified files."
+end
+
+files.each do |line|
+  line = line.split(/[\t\s]+/).last
   puts "  processing #{line}..."
   code = File.read(line)
   File.open(line, 'w+') { |f| f << (WhitespaceProcessor.process(code)) }

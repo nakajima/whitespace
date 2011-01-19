@@ -2,12 +2,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{whitespace}
-  s.version = "1.0.0"
+  s.version = "2.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Pat Nakajima"]
   s.date = %q{2011-01-19}
   s.email = %q{patnakajima@gmail.com}
+  s.default_executable = %q{whitespace}
+  s.executables = ["whitespace"]
   s.files = ["README", "bin/whitespace"]
   s.homepage = %q{https://github.com/nakajima/whitespace}
   s.require_paths = ["lib"]

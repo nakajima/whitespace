@@ -38,7 +38,7 @@ else
 end
 
 files.each do |line|
-  line = line.split(/[\t\s]+/).last
+  line = line.split(":").last.strip
   puts "  processing #{line}..."
   code = File.read(line)
   File.open(line, 'w+') { |f| f << (WhitespaceProcessor.process(code)) }

@@ -9,7 +9,7 @@
 class WhitespaceProcessor
   def self.process(code)
     result = []
-    code.each do |line|
+    code.each_line do |line|
       line.gsub!(/(\s+)$/, "\n")
       line.gsub!(/\t/, '  ')
       result << line

@@ -40,7 +40,11 @@ end
 files.each do |line|
   line = line.split(":").last.strip
   puts "  processing #{line}..."
-  code = File.read(line)
-  File.open(line, 'w+') { |f| f << (WhitespaceProcessor.process(code)) }
+  begin
+    code = File.read(line)
+    File.open(line, 'w+') { |f| f << (WhitespaceProcessor.process(code)) }
+  rescue Errno::ENOENT
+    puts "    WARNING: #{line} not found"
+  end
 end
 puts "* DONE"

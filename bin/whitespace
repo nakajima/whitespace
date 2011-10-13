@@ -6,6 +6,8 @@
 # Also:
 # - converts tabs to spaces
 # - ensures a single newline at the end
+FILE_TYPES = "rb|js|haml|html|css|sass|coffee"
+
 class WhitespaceProcessor
   def self.process(code)
     result = []
@@ -33,7 +35,7 @@ if ARGV.include?('--all')
   files = `find . -type file | grep -v .git | grep -v ./vendor | grep -v ./tmp  | egrep ".(rb|js|haml|html|css|sass)"`.split(/\n/)
   puts "* Stripping whitespace from all project files"
 else
-  files = `git status | egrep ".(rb|js|haml|html|css|sass)"`.split("\n").select { |file| file =~ /^#\t(modified|new file|renamed):/ }
+  files = `git status | egrep ".(#{FILE_TYPES})"`.split("\n").select { |file| file =~ /^#\t(modified|new file|renamed):/ }
   puts "* Stripping whitespace from modified files."
 end
 

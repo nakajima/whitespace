@@ -32,7 +32,7 @@ class WhitespaceProcessor
 end
 
 if ARGV.include?('--all')
-  files = `find . -type file | grep -v .git | grep -v ./vendor | grep -v ./tmp  | egrep ".(rb|js|haml|html|css|sass)"`.split(/\n/)
+  files = `find . -type file | grep -v .git | grep -v ./vendor | grep -v ./tmp  | egrep ".(#{FILE_TYPES})"`.split(/\n/)
   puts "* Stripping whitespace from all project files"
 else
   files = `git status | egrep ".(#{FILE_TYPES})"`.split("\n").select { |file| file =~ /^#\t(modified|new file|renamed):/ }

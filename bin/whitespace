@@ -31,12 +31,34 @@ class WhitespaceProcessor
   end
 end
 
-if ARGV.include?('--all')
-  files = `find . -type file | grep -v .git | grep -v ./vendor | grep -v ./tmp  | egrep ".(#{FILE_TYPES})"`.split(/\n/)
-  puts "* Stripping whitespace from all project files"
+@message_all = "* Stripping whitespace from all project files."
+@message_modified = "* Stripping whitespace from modified files."
+
+
+def get_files_git
+  if ARGV.include?('--all')
+    puts @message_all 
+    `find . -type file | grep -v .git | grep -v ./vendor | grep -v ./tmp  | egrep ".(#{FILE_TYPES})"`.split(/\n/)
+  else
+    puts @message_modified 
+    `git status | egrep ".(#{FILE_TYPES})"`.split("\n").select { |file| file =~ /^#\t(modified|new file|renamed):/ }
+  end
+end
+
+def get_files_mercurial
+  if ARGV.include?('--all')
+    puts @message_all 
+    `hg status -m -a -c -n`.split("\n").select { |file| file =~ /\.(#{FILE_TYPES})$/ }
+  else
+    puts @message_modified 
+    `hg status -m -a -n`.split("\n").select { |file| file =~ /^[^!I?].*\.(#{FILE_TYPES})$/ }
+  end
+end
+
+if ARGV.include?('--hg')
+  files = get_files_mercurial
 else
-  files = `git status | egrep ".(#{FILE_TYPES})"`.split("\n").select { |file| file =~ /^#\t(modified|new file|renamed):/ }
-  puts "* Stripping whitespace from modified files."
+  files = get_files_git
 end
 
 files.each do |line|

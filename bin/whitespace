@@ -6,7 +6,7 @@
 # Also:
 # - converts tabs to spaces
 # - ensures a single newline at the end
-FILE_TYPES = "rb|js|haml|html|css|sass|coffee|m|h"
+FILE_TYPES = "(.rb|.js|.haml|.html|.css|.sass|.coffee)$"
 
 class WhitespaceProcessor
   def self.process(code)

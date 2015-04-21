@@ -1,6 +1,6 @@
 # whitespace
 
-Strips whitespace in files modified by git.
+Strips whitespace in files modified by git. Written by Chris Wanstrath.
 
 ## USAGE
 

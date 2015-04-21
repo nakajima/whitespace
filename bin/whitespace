@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# script/whitespace
+# ./script/whitespace
 #
 # Strips whitespace from any files modified in git
 # Also:
